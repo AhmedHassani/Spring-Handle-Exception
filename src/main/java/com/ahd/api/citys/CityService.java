@@ -1,11 +1,15 @@
 package com.ahd.api.citys;
 
 
+import com.ahd.api.exception.BadRequest;
+import com.ahd.api.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -14,7 +18,12 @@ public class CityService {
     private CityRepository cityRepository;
 
     public CityModel getCity(int id) {
-        return cityRepository.findById(id).get();
+        try {
+            return cityRepository.findById(id).get();
+        }catch (NoSuchElementException exception){
+            throw new NotFoundException(String.format("Not Found this id [%s]", id));
+        }
+
     }
 
     public List<CityModel> getListCity() {
@@ -26,18 +35,35 @@ public class CityService {
     }
 
     public CityModel updateCity(CityModel city) {
-        return cityRepository.save(city);
+        try {
+            return cityRepository.save(city);
+        }catch (NoSuchElementException exception){
+            throw new NotFoundException(String.format("Not Found this id [%s]" , city.getId()));
+        }
     }
 
-    public void deleteCity(int id) {
-        cityRepository.deleteById(id);
+    public boolean deleteCity(int id) {
+        try {
+            if (cityRepository.existsById(id)) {
+                cityRepository.deleteById(id);
+                return true;
+            }
+        }catch (NoSuchElementException exception) {
+            throw new NotFoundException(String.format("Not Found this id [%s]", id));
+        }catch (HttpClientErrorException.BadRequest exception){
+            throw new BadRequest("illegal request");
+        }
+        throw new NotFoundException(String.format("Not Found this id [%s]", id));
     }
 
     // search city by name
     public CityModel findByName(String name) {
-        Optional<CityModel> credentials = cityRepository.findByName(name);
-        return credentials.get();
-
+        try {
+            Optional<CityModel> credentials = cityRepository.findByName(name);
+            return credentials.get();
+        }catch (NoSuchElementException exception){
+            throw new NotFoundException(String.format("Not Found this name [%s]", name));
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package com.ahd.api.citys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -13,33 +15,35 @@ public class CityController {
     private CityService cityService;
 
     @GetMapping("/citys")
-    public List<CityModel> getListCity() {
-        return cityService.getListCity();
+    public ResponseEntity getListCity() {
+        return new ResponseEntity(cityService.getListCity(), HttpStatus.OK);
     }
 
     @GetMapping("/citys/{id}")
-    public CityModel getCity(@PathVariable int id) {
-        return cityService.getCity(id);
+    public ResponseEntity getCity(@PathVariable int id) {
+
+        return new ResponseEntity(cityService.getCity(id), HttpStatus.OK);
     }
 
     @PostMapping("/citys")
-    public CityModel addCity(@RequestBody CityModel city) {
-        return cityService.addCity(city);
+    public ResponseEntity addCity(@RequestBody CityModel city) {
+
+        return new ResponseEntity(cityService.addCity(city),HttpStatus.CREATED);
     }
 
     @PutMapping("/citys")
-    public CityModel updateCity(@RequestBody CityModel city) {
-        return cityService.updateCity(city);
+    public ResponseEntity updateCity(@RequestBody CityModel city) {
+        return new ResponseEntity(cityService.updateCity(city),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/citys/{id}")
-    public void deleteCity(@PathVariable int id) {
-        cityService.deleteCity(id);
+    public ResponseEntity deleteCity(@PathVariable int id) {
+        return new ResponseEntity(cityService.deleteCity(id),HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/citys/search/{name}")
-    public CityModel findByName(@PathVariable String name) {
-        return cityService.findByName(name);
+    public ResponseEntity findByName(@PathVariable String name) {
+        return new ResponseEntity(cityService.findByName(name), HttpStatus.OK);
     }
 
 

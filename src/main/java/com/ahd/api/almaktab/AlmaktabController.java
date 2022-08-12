@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1")
 public class AlmaktabController {
@@ -32,7 +30,6 @@ public class AlmaktabController {
 
     @GetMapping("/almaktab/search/{name}")
     public ResponseEntity findByName(@PathVariable String name) {
-
         return new ResponseEntity(almaktabService.findByName(name),HttpStatus.OK);
     }
 
@@ -46,7 +43,7 @@ public class AlmaktabController {
         return new ResponseEntity(almaktabService.updateAlmaktab(almaktab),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/citys/{id}")
+    @DeleteMapping("/almaktab/{id}")
     public ResponseEntity deleteAlmaktab(@PathVariable int id) {
         return new ResponseEntity(almaktabService.deleteAlmaktab(id),HttpStatus.NO_CONTENT);
     }

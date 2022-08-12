@@ -3,6 +3,8 @@ package com.ahd.api.almaktab;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,31 +17,38 @@ public class AlmaktabController {
     private AlmaktabService almaktabService;
 
     @GetMapping("/almaktab")
-    public List<AlmaktabModel> getListAlmaktab(
+    public ResponseEntity getListAlmaktab(
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy) {
-        return almaktabService.getListAlmaktab(pageNo,pageSize,sortBy);
+        return new ResponseEntity(almaktabService.getListAlmaktab(pageNo,pageSize,sortBy), HttpStatus.OK);
+
     }
 
     @GetMapping("/almaktab/{id}")
-    public AlmaktabModel getAlmaktab(@PathVariable int id) {
-        return almaktabService.getAlmaktab(id);
+    public ResponseEntity getAlmaktab(@PathVariable int id) {
+        return new ResponseEntity(almaktabService.getAlmaktab(id),HttpStatus.OK);
     }
 
     @GetMapping("/almaktab/search/{name}")
-    public AlmaktabModel findByName(@PathVariable String name) {
-        return almaktabService.findByName(name);
+    public ResponseEntity findByName(@PathVariable String name) {
+
+        return new ResponseEntity(almaktabService.findByName(name),HttpStatus.OK);
     }
 
     @PostMapping("/almaktab")
-    public AlmaktabModel addAlmaktab(@RequestBody  AlmaktabModel almaktab) {
-        return almaktabService.addAlmaktab(almaktab);
+    public ResponseEntity addAlmaktab(@RequestBody  AlmaktabModel almaktab) {
+        return new ResponseEntity(almaktabService.addAlmaktab(almaktab),HttpStatus.CREATED);
     }
 
     @PutMapping("/almaktab")
-    public AlmaktabModel updateAlmaktab(@RequestBody AlmaktabModel almaktab) {
-        return almaktabService.updateAlmaktab(almaktab);
+    public ResponseEntity updateAlmaktab(@RequestBody AlmaktabModel almaktab) {
+        return new ResponseEntity(almaktabService.updateAlmaktab(almaktab),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/citys/{id}")
+    public ResponseEntity deleteAlmaktab(@PathVariable int id) {
+        return new ResponseEntity(almaktabService.deleteAlmaktab(id),HttpStatus.NO_CONTENT);
     }
 
 

@@ -20,7 +20,7 @@ public class CityService {
     public CityModel getCity(int id) {
         try {
             return cityRepository.findById(id).get();
-        }catch (NoSuchElementException exception){
+        } catch (NoSuchElementException exception) {
             throw new NotFoundException(String.format("Not Found this id [%s]", id));
         }
 
@@ -37,8 +37,8 @@ public class CityService {
     public CityModel updateCity(CityModel city) {
         try {
             return cityRepository.save(city);
-        }catch (NoSuchElementException exception){
-            throw new NotFoundException(String.format("Not Found this id [%s]" , city.getId()));
+        } catch (NoSuchElementException exception) {
+            throw new NotFoundException(String.format("Not Found this id [%s]", city.getId()));
         }
     }
 
@@ -48,9 +48,9 @@ public class CityService {
                 cityRepository.deleteById(id);
                 return true;
             }
-        }catch (NoSuchElementException exception) {
+        } catch (NoSuchElementException exception) {
             throw new NotFoundException(String.format("Not Found this id [%s]", id));
-        }catch (HttpClientErrorException.BadRequest exception){
+        } catch (HttpClientErrorException.BadRequest exception) {
             throw new BadRequest("illegal request");
         }
         throw new NotFoundException(String.format("Not Found this id [%s]", id));
@@ -61,7 +61,7 @@ public class CityService {
         try {
             Optional<CityModel> credentials = cityRepository.findByName(name);
             return credentials.get();
-        }catch (NoSuchElementException exception){
+        } catch (NoSuchElementException exception) {
             throw new NotFoundException(String.format("Not Found this name [%s]", name));
         }
     }

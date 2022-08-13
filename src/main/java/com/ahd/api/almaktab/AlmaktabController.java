@@ -20,7 +20,6 @@ public class AlmaktabController {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy) {
         return new ResponseEntity(almaktabService.getListAlmaktab(pageNo,pageSize,sortBy), HttpStatus.OK);
-
     }
 
     @GetMapping("/almaktab/{id}")

@@ -60,11 +60,12 @@ public class AlmaktabService {
         throw new NotFoundException(String.format("Not Found this id [%s]", almaktab.getId()));
     }
 
-    public boolean deleteAlmaktab(int id) {
+    public AlmaktabModel deleteAlmaktab(int id) {
         try {
             if (almaktabRepository.existsById(id)) {
+                AlmaktabModel almaktabModel = almaktabRepository.findById(id).get();
                 almaktabRepository.deleteById(id);;
-                return true;
+                return almaktabModel;
             }
         }catch (NoSuchElementException exception) {
             throw new NotFoundException(String.format("Not Found this id [%s]", id));

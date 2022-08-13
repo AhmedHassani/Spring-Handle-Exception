@@ -43,13 +43,10 @@ public class AlmaktabController {
         return new ResponseEntity(almaktabService.updateAlmaktab(almaktab),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/almaktab/{id}")
+    @DeleteMapping("/almaktab/delete/{id}")
     public ResponseEntity deleteAlmaktab(@PathVariable int id) {
         return new ResponseEntity(almaktabService.deleteAlmaktab(id),HttpStatus.OK);
     }
-
-
-
 
 
 }

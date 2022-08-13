@@ -42,11 +42,12 @@ public class CityService {
         }
     }
 
-    public boolean deleteCity(int id) {
+    public CityModel deleteCity(int id) {
         try {
             if (cityRepository.existsById(id)) {
+                CityModel CityModel= cityRepository.findById(id).get();
                 cityRepository.deleteById(id);
-                return true;
+                return CityModel;
             }
         } catch (NoSuchElementException exception) {
             throw new NotFoundException(String.format("Not Found this id [%s]", id));

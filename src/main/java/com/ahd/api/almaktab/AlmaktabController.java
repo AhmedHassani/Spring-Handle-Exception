@@ -44,7 +44,7 @@ public class AlmaktabController {
 
     @DeleteMapping("/almaktab/{id}")
     public ResponseEntity deleteAlmaktab(@PathVariable int id) {
-        return new ResponseEntity(almaktabService.deleteAlmaktab(id),HttpStatus.NO_CONTENT);
+        return new ResponseEntity(almaktabService.deleteAlmaktab(id),HttpStatus.OK);
     }
 
 

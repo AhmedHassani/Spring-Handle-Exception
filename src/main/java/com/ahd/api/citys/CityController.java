@@ -39,7 +39,7 @@ public class CityController {
 
     @DeleteMapping("/citys/{id}")
     public ResponseEntity deleteCity(@PathVariable int id) {
-        return new ResponseEntity(cityService.deleteCity(id),HttpStatus.NO_CONTENT);
+        return new ResponseEntity(cityService.deleteCity(id),HttpStatus.OK);
     }
 
     @GetMapping("/citys/search/{name}")

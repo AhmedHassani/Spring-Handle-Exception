@@ -45,9 +45,9 @@ public class CityService {
     public CityModel deleteCity(int id) {
         try {
             if (cityRepository.existsById(id)) {
-                CityModel CityModel= cityRepository.findById(id).get();
+                CityModel cityModel= cityRepository.findById(id).get();
                 cityRepository.deleteById(id);
-                return CityModel;
+                return cityModel;
             }
         } catch (NoSuchElementException exception) {
             throw new NotFoundException(String.format("Not Found this id [%s]", id));

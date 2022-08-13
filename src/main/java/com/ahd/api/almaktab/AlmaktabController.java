@@ -24,6 +24,7 @@ public class AlmaktabController {
 
     @GetMapping("/almaktab/{id}")
     public ResponseEntity getAlmaktab(@PathVariable int id) {
+
         return new ResponseEntity(almaktabService.getAlmaktab(id),HttpStatus.OK);
     }
 

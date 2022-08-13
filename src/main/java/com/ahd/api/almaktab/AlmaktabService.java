@@ -64,7 +64,7 @@ public class AlmaktabService {
         try {
             if (almaktabRepository.existsById(id)) {
                 AlmaktabModel almaktabModel = almaktabRepository.findById(id).get();
-                almaktabRepository.deleteById(id);;
+                almaktabRepository.deleteById(id);
                 return almaktabModel;
             }
         }catch (NoSuchElementException exception) {
